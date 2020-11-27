@@ -62,10 +62,9 @@ function DataBaseHandler(){
     };
 
     this.getNext = () => {
-        if(this.cursor){
-            this.cursor = this.cursor.continue();
-            if(this.cursor) document.getElementById("inputControl2").value = this.cursor.value;
-        }
+
+        var objectStore = this.dataBase.transaction(this.storeName).objectStore(this.storeName);
+        
 
     };
 }

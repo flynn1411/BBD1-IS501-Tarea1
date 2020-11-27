@@ -1,50 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Josue Ariel Izaguirre">
-    <meta name="description" content="">
-    <title>Tarea 1 - IndexDB</title>
-</head>
-<body>
-    <form>
-        <input type="radio" name="control1" id="agregar">
-        <label for="agregar">Agregar</label><br>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Josue Ariel Izaguirre">
+        <meta name="description" content="">
+        <title>Tarea 1 - IndexDB</title>
+    </head>
+    <body>
+        <script src="src/DataBaseHandler.js"></script>
+        <script src="src/ActionHandler.js"></script>
+        <script src="src/index.js"></script>
+        
+        <div>
+            <input type="radio" name="control1" value="insert">
+            <label for="agregar">Agregar</label><br>
 
-        <input type="radio" name="control1" id="eliminar">
-        <label for="eliminar">Eliminar</label><br>
+            <input type="radio" name="control1" value="delete">
+            <label for="eliminar">Eliminar</label><br>
 
-        <input type="radio" name="control1" id="modificar">
-        <label for="modificar">Modificar</label><br>
+            <input type="radio" name="control1" value="modify">
+            <label for="modificar">Modificar</label><br>
 
-        <input type="radio" name="control1" id="anterior">
-        <label for="anterior">Anterior</label><br>
+            <input type="radio" name="control1" value="previous">
+            <label for="anterior">Anterior</label><br>
 
-        <input type="radio" name="control1" id="siguiente">
-        <label for="siguiente">Siguiente</label><br>
+            <input type="radio" name="control1" value="next">
+            <label for="siguiente">Siguiente</label><br>
 
-        <input type="radio" name="control1" id="primero">
-        <label for="primero">Primero</label><br>
+            <input type="radio" name="control1" value="first">
+            <label for="primero">Primero</label><br>
 
-        <input type="radio" name="control1" id="ultimo">
-        <label for="ultimo">Último</label><br>
-    </form>
-    <br>
+            <input type="radio" name="control1" value="last">
+            <label for="ultimo">Último</label><br>
+        </div>
+        <br>
 
-    <form >
-        <input placeholder="Un texto cualquiera" type="text" name="control2" id="">
-    </form>
-    <br>
+        <div>
+            <input placeholder="Valor a agregar u obtenido" type="text" name="control2" id="inputControl2">
+        </div>
+        <br>
 
-    <form>
-        <button>
-            Aceptar
-        </button>
-        <br> <br>
-        <button>
-            Limpiar
-        </button>
-    </form>
-</body>
+        <div>
+            <button onClick="handleClick('accept')">
+                Aceptar
+            </button>
+            <br> <br>
+            <button onClick="handleClick('clear')">
+                Limpiar
+            </button>
+        </div>
+
+    </body>
 </html>

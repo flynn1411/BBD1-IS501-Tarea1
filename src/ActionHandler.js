@@ -47,17 +47,46 @@ function ActionHandler(dbHandler){
            if(options[i].checked === true) action = options[i].value;
        }
     
-       action === "" ? alert("Debe seleccionar una opción."): this.processAction(action);
+       this.processAction(action);
     };
 
-    this.processAction = (action) => {
-        //console.log(action);
+    /**
+      * ! Función que cambia la llave actual al esperar 750ms luego de haberse realizado transacciones
+      * * Esto se realiza para poder esperar a que la transacción se complete y poder obtener el dato esperado.
+      * @author: Josué Ariel Izaguirre
+      * @date: 28/11/2020
+      * @version 0.1
+      **/
+    this.setKey = () => {
+      setTimeout( ()=>{
+        //Se obtiene la llave actual al guardarla como nombre de clase en el primer div.
+        this.dbHandler.currentKey = parseInt(document.getElementById("controlDIV").className);
 
+        //Imprime este mensaje en consola a manera de asegurarse que el puntero/llave cambió de posición
+        console.log(`Llave actual: ${this.dbHandler.currentKey}`);
+      }, 750);
+    };
+
+    /**
+      * ! Función que procesa la acción y llamar al metódo indicado del manejador de indexedDB
+      * @param action Cadena que indica cual acción realizar
+      * @author: Josué Ariel Izaguirre
+      * @date: 28/11/2020
+      * @version 0.1
+      **/
+    this.processAction = (action) => {
+
+        //Se utiliza un switch para poder trabajar los distintos casos
         switch (action) {
+
+          /**
+           * * Caso Agregar:
+           * * Obtiene el valor del control2 y revisa si no se encuentra vacío para luego
+           * * llamar al método insert de DataBaseHandler
+           */
           case "insert":
 
             var data = document.getElementById("inputControl2").value;
-            console.log(data);
 
             if(data === ""){
               alert("Para agregar datos, el área de texto no debe de estar vacio.");
@@ -67,15 +96,74 @@ function ActionHandler(dbHandler){
 
             break;
 
+          /**
+           * * Caso Eliminar:
+           * * Llama el método remove de DataBaseHandler
+           */
+          case "delete":
+
+            this.dbHandler.remove();
+            this.setKey();           
+            break;
+
+          /**
+           * * Caso Modificar:
+           * * Obtiene el valor del control2 y revisa si no se encuentra vacío para luego
+           * * llamar al método modify de DataBaseHandler
+           */
+          case "modify":
+
+            var newData = document.getElementById("inputControl2").value;
+
+            if(newData === ""){
+              alert("Para modificar datos, el área de texto no debe de estar vacio.");
+            }else{
+              this.dbHandler.modify(newData);
+            }
+            break;
+
+          /**
+           * * Caso Siguiente:
+           * * Llama al metódo getNext de DataBaseHandler
+           */
           case "next":
             this.dbHandler.getNext();
-
-          case "first":
-            console.log(this.dbHandler.getFirst());
-
+            this.setKey();
             break;
-        
+          
+          /**
+           * * Caso Anterior:
+           * * Llama al metódo getPrevious de DataBaseHandler
+           */
+          case "previous":
+            this.dbHandler.getPrevious();
+            this.setKey();
+            break;
+
+          /**
+           * * Caso Primero:
+           * * Llama al metódo getFirst de DataBaseHandler
+           */
+          case "first":
+            this.dbHandler.getFirst();
+            this.setKey();
+            break;
+
+          /**
+           * * Caso Último:
+           * * Llama al metódo getLast de DataBaseHandler
+           */
+          case "last":
+            this.dbHandler.getLast();
+            this.setKey();
+            break;
+      
+          /**
+           * * Caso Defecto:
+           * * Le alerta al usuario que no ha realizado alguna selección
+           */
           default:
+            alert("Debe seleccionar una opción.");
             break;
         }
     }
